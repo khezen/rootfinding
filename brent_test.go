@@ -12,6 +12,7 @@ func TestBrent(t *testing.T) {
 		intervalEnd   float64
 		precision     float64
 		roots         []float64
+		expectedErr   error
 	}{
 		{
 			func(x float64) float64 {
@@ -19,6 +20,15 @@ func TestBrent(t *testing.T) {
 			},
 			-100000, 100000, 0.0001,
 			[]float64{-3, 1},
+			nil,
+		},
+		{
+			func(x float64) float64 {
+				return (x + 3) * math.Pow(x-1, 2)
+			},
+			0, 0.5, 0.0001,
+			[]float64{-3, 1},
+			ErrRootIsNotBracketed,
 		},
 		{
 			func(x float64) float64 {
@@ -26,12 +36,18 @@ func TestBrent(t *testing.T) {
 			},
 			0, 1, 0.000001,
 			[]float64{0.366025403784438},
+			nil,
 		},
 	}
 	for _, c := range cases {
 		root, err := Brent(c.f, c.intervalStart, c.intervalEnd, c.precision)
-		if err != nil {
-			panic(err)
+		switch {
+		case err != nil && err == c.expectedErr:
+			continue
+		case err == nil && err == c.expectedErr:
+			break
+		case err != c.expectedErr:
+			t.Errorf("expected %v, got %v", c.expectedErr, err)
 		}
 		matched := false
 		i := 0
