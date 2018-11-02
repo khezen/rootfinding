@@ -58,7 +58,6 @@ func Brent(f func(x float64) float64, a, b, precision float64) (r float64, err e
 		default:
 			wasBisectionUsed = false
 			break
-
 		}
 		fs = f(s)
 		d = c // d is first defined here; is not use in the first step above because wasBisectionUsed set to true
