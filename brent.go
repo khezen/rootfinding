@@ -21,15 +21,16 @@ func Brent(f func(x float64) float64, a, b, precision float64) (r float64, err e
 		absCMinusD       float64
 		absSMinusB       float64
 		tmp              float64
+		// swap - a becomes b, b becomes a
+		swap = func() {
+			tmp = a
+			a = b
+			b = tmp
+			tmp = fa
+			fa = fb
+			fb = tmp
+		}
 	)
-	var swap = func() {
-		tmp = a
-		a = b
-		b = tmp
-		tmp = fa
-		fa = fb
-		fb = tmp
-	}
 	if fa*fb > 0 {
 		return 0, ErrRootIsNotBracketed
 	}
