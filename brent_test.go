@@ -41,13 +41,11 @@ func TestBrent(t *testing.T) {
 	}
 	for _, c := range cases {
 		root, err := Brent(c.f, c.intervalStart, c.intervalEnd, c.precision)
-		switch {
-		case err != nil && err == c.expectedErr:
-			continue
-		case err == nil && err == c.expectedErr:
-			break
-		case err != c.expectedErr:
+		if err != c.expectedErr {
 			t.Errorf("expected %v, got %v", c.expectedErr, err)
+		}
+		if err != nil {
+			continue
 		}
 		matched := false
 		i := 0
