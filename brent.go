@@ -5,7 +5,7 @@ import (
 )
 
 // Brent - Brent's Method finds the root of the given quadratic function f in [a,b].
-// The precision is the number of digits after the flaoting point.
+// The precision is the number of digits after the floating point.
 // reference: https://en.wikipedia.org/wiki/Brent%27s_method
 func Brent(f func(x float64) float64, a, b float64, precision int) (r float64, err error) {
 	var (
