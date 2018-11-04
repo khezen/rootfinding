@@ -4,11 +4,13 @@ import (
 	"math"
 )
 
-// Brent - Brent's Method finds the root of the given quadratic function in [a,b]
+// Brent - Brent's Method finds the root of the given quadratic function f in [a,b].
+// The precision is the number of digits after the flaoting point.
 // reference: https://en.wikipedia.org/wiki/Brent%27s_method
-func Brent(f func(x float64) float64, a, b, precision float64) (r float64, err error) {
+func Brent(f func(x float64) float64, a, b float64, precision int) (r float64, err error) {
 	var (
 		delta            = EpsilonF64 * (b - a) // numerical tolerance
+		acceptance       = math.Pow10(-precision)
 		fa               = f(a)
 		fb               = f(b)
 		c                = a
@@ -37,7 +39,7 @@ func Brent(f func(x float64) float64, a, b, precision float64) (r float64, err e
 	if math.Abs(fa) < math.Abs(fb) {
 		swap()
 	}
-	for fb != 0 && math.Abs(b-a) > precision {
+	for fb != 0 && math.Abs(b-a) > acceptance {
 		if fa != fc && fb != fc { // inverse quadratic interpolation
 			s = (a*fb*fc)/((fa-fb)*(fa-fc)) + (b*fa*fc)/((fb-fa)*(fb-fc)) + (c*fa*fb)/((fc-fa)*(fc-fb))
 		} else { // secant method
