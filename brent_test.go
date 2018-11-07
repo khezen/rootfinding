@@ -46,6 +46,14 @@ func TestBrent(t *testing.T) {
 			[]float64{-3.162278, 3.162278},
 			nil,
 		},
+		{
+			func(x float64) float64 {
+				return -10 + 100*math.Pow(x, 2)
+			},
+			-1, 1, 5,
+			[]float64{-0.316227, 0.316227},
+			nil,
+		},
 	}
 	for _, c := range cases {
 		root, err := Brent(c.f, c.intervalStart, c.intervalEnd, c.precision)

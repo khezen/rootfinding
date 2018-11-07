@@ -34,7 +34,11 @@ func Brent(f func(x float64) float64, a, b float64, precision int) (r float64, e
 		}
 	)
 	if fa*fb > 0 {
-		if a > -1 && b < 1 || (f(1/a)*fb > 0 && f(1/b)*fa > 0) {
+		if a == 0 || b == 0 {
+			return 0, ErrRootIsNotBracketed
+		}
+		f0 := f(0)
+		if f0*fb > 0 && f0*fa > 0 {
 			return 0, ErrRootIsNotBracketed
 		}
 	}
