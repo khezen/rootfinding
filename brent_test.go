@@ -24,10 +24,10 @@ func TestBrent(t *testing.T) {
 		},
 		{
 			func(x float64) float64 {
-				return (x + 3) * math.Pow(x-1, 2)
+				return (x + 3) * math.Pow(x-2, 2)
 			},
-			0, 0.5, 5,
-			[]float64{-3, 1},
+			-2, 1.5, 5,
+			[]float64{-3, 2},
 			ErrRootIsNotBracketed,
 		},
 		{
@@ -36,6 +36,14 @@ func TestBrent(t *testing.T) {
 			},
 			0, 1, 6,
 			[]float64{0.366025403784438},
+			nil,
+		},
+		{
+			func(x float64) float64 {
+				return -10 + math.Pow(x, 2)
+			},
+			-10000, 10000, 5,
+			[]float64{-3.162278, 3.162278},
 			nil,
 		},
 	}

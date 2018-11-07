@@ -34,7 +34,9 @@ func Brent(f func(x float64) float64, a, b float64, precision int) (r float64, e
 		}
 	)
 	if fa*fb > 0 {
-		return 0, ErrRootIsNotBracketed
+		if a > -1 && b < 1 || (f(1/a)*fb > 0 && f(1/b)*fa > 0) {
+			return 0, ErrRootIsNotBracketed
+		}
 	}
 	if math.Abs(fa) < math.Abs(fb) {
 		swap()
