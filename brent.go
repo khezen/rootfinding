@@ -14,9 +14,9 @@ func Brent(f func(x float64) float64, a, b float64, precision int) (r float64, e
 		fa               = f(a)
 		fb               = f(b)
 		c                = a
-		fc               = f(c)
+		fc               = fa
 		s                float64
-		fs               = f(s)
+		fs               float64
 		d                float64
 		wasBisectionUsed = true
 		absBMinusC       float64
