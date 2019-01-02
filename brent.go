@@ -33,7 +33,7 @@ func Brent(f func(x float64) float64, a, b float64, precision int) (r float64, e
 			fb = tmp
 		}
 	)
-	if a > b{
+	if a > b {
 		swap()
 	}
 	if fa*fb > 0 {
