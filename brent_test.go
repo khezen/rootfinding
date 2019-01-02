@@ -65,9 +65,9 @@ func TestBrent(t *testing.T) {
 		}
 		matched := false
 		i := 0
-		accpetance := math.Pow10(-c.precision)
+		acceptance := math.Pow10(-c.precision)
 		for i < len(c.roots) && !matched {
-			matched = c.roots[i]-accpetance <= root && root <= c.roots[i]+accpetance
+			matched = c.roots[i]-acceptance <= root && root <= c.roots[i]+acceptance
 			i++
 		}
 		if !matched {
